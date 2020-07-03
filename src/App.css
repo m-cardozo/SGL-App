@@ -173,7 +173,7 @@ button:hover {
   box-shadow: 0px 2px 5px 0px #303030f0;
 }
 
-.btn-edit, .btn-delete {
+.btn-edit, .btn-delete, .btn-close {
   width: 25px;
   height: 25px;
   margin: 5px 10px;
@@ -183,7 +183,7 @@ button:hover {
   background: none;
 }
 
-.btn-edit:hover, .btn-delete:hover {
+.btn-edit:hover, .btn-delete:hover, .btn-close:hover {
   transform: none !important;
   box-shadow: none !important;
 }
@@ -194,4 +194,25 @@ button>img {
 
 button>img:hover {
   transform: scale(1.2);
+}
+
+form .form-block {
+  height: 75px;
+  margin: 5px;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+form .form-block input {
+  padding: 0 5px;
+  border: none;
+  border-bottom: 1px solid #254035;
+}
+
+form button {
+  grid-area: buttons;
+  margin: 5px 15px 15px;
+  align-self: flex-end;
+  justify-self: flex-end;
 }
