@@ -118,3 +118,80 @@ main {
   text-align: center;
   font-size: 80px;
 }
+
+legend {
+  color: #808080;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+th, td {
+  text-align: left;
+  padding: 5px 10px;
+}
+
+th {
+  background: #254035;
+  color: #f0f0f0;
+  font-weight: 500;
+}
+
+.tr-row:nth-child(odd) {
+  background-color: #e0e0e0;
+}
+
+th:last-child {
+  width: 110px;
+}
+
+td:last-child {
+  display: flex;
+}
+
+.buttons {
+  padding: 5px 0 10px;
+}
+
+button {
+  width: 100px;
+  height: 35px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  transition: .5s ease;
+  background: #254035;
+  color: #f0f0f0;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 2px 5px 0px #303030f0;
+}
+
+.btn-edit, .btn-delete {
+  width: 25px;
+  height: 25px;
+  margin: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+button>img {
+  transition: .5s ease;
+}
+
+button>img:hover {
+  transform: scale(1.2);
+}

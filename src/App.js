@@ -7,6 +7,11 @@ import {
   Link
 } from 'react-router-dom';
 import Logo from './Icons/Sticraf.svg';
+import Localities from './Pages/Localities';
+import Users from './Pages/Users';
+import Customers from './Pages/Customers';
+import Providers from './Pages/Providers';
+import Vehicles from './Pages/Vehicles';
 
 function App() {
   return (
@@ -43,11 +48,21 @@ function App() {
           </Route>
           <Route path="/expenses"></Route>
           <Route path="/travels"></Route>
-          <Route path="/localities"></Route>
-          <Route path="/users"></Route>
-          <Route path="/customers"></Route>
-          <Route path="/providers"></Route>
-          <Route path="/vehicles"></Route>
+          <Route path="/localities">
+            <Localities />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/customers">
+            <Customers />
+          </Route>
+          <Route path="/providers">
+            <Providers />
+          </Route>
+          <Route path="/vehicles">
+            <Vehicles />
+          </Route>
           <Route path="/trailers"></Route>
           <Route path="/maintenance"></Route>
         </Switch>
