@@ -71,7 +71,7 @@
     margin: 0 auto 10px;
 }
 
-/* ALERT DELETE */
+/* DELETE ALERT */
 
 .alert {
     display: flex;
@@ -87,4 +87,10 @@
 .alert button {
     margin: 10px;
     justify-self: flex-end;
+}
+
+/* ERROR ALERT */
+
+.alertError {
+    color: white;
 }

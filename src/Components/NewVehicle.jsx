@@ -1,5 +1,6 @@
 import React from 'react';
 import './components.css';
+import ErrorAlert from './ErrorAlert';
 
 function NewVehicle(props) {
     const [vehicle, setVehicle] = React.useState({
@@ -9,11 +10,19 @@ function NewVehicle(props) {
         type: '',
         enabled: ''
     });
+    const [isOpenError, setIsOpenError] = React.useState(false);
 
+    const openModalError = () => {
+        setIsOpenError(true);
+    }
+    const closeModalError = () => {
+        setIsOpenError(false);
+    }
+    
     const sendForm = (event) => {
         event.preventDefault();
         if (!vehicle.type || !vehicle.enabled) {
-            console.error("Debe completar todos los datos");
+            openModalError();
         } else {
             fetch('http://localhost:4000/vehicles', {
                 headers: {
@@ -71,6 +80,8 @@ function NewVehicle(props) {
             </div>
 
             <button className="btn-save" type="submit">Guardar</button>
+
+            <ErrorAlert open={isOpenError} close={closeModalError} />
         </form>
     );
 }

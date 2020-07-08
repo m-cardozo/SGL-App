@@ -1,5 +1,6 @@
 import React from 'react';
 import './components.css';
+import ErrorAlert from './ErrorAlert';
 
 function NewUser(props) {
     const [user, setUser] = React.useState({
@@ -12,11 +13,19 @@ function NewUser(props) {
         admissionDate: '',
         egressDate: ''
     });
+    const [isOpenError, setIsOpenError] = React.useState(false);
+
+    const openModalError = () => {
+        setIsOpenError(true);
+    }
+    const closeModalError = () => {
+        setIsOpenError(false);
+    }
 
     const sendForm = (event) => {
         event.preventDefault();
         if (!user.position || !user.paymentPeriod) {
-            console.error("Debe completar todos los datos");
+            openModalError();
         } else {
             fetch('http://localhost:4000/users', {
                 headers: {
@@ -95,6 +104,8 @@ function NewUser(props) {
             </div>
 
             <button className="btn-save" type="submit">Guardar</button>
+
+            <ErrorAlert open={isOpenError} close={closeModalError} />
         </form>
     );
 }
