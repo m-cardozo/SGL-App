@@ -14,7 +14,7 @@ function EditUser(props) {
             })
     }, [props.id]);
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         fetch('http://localhost:4000/users/' + props.id, {
             headers: {
@@ -22,10 +22,12 @@ function EditUser(props) {
             },
             method: 'PUT',
             body: JSON.stringify(user)
-        });
+        })
+            .then(props.saveAfter)
+            .then(props.close)
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setUser({ ...user, [event.target.name]: event.target.value });
     }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import './components.css';
 
-function NewLocality() {
+function NewLocality(props) {
     const [locality, setLocality] = React.useState({
         city: '',
         departament: '',
         country: ''
     });
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         fetch('http://localhost:4000/localities', {
             headers: {
@@ -16,10 +16,12 @@ function NewLocality() {
             },
             method: 'POST',
             body: JSON.stringify(locality)
-        });
+        })
+            .then(props.saveAfter)
+            .then(props.close)
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setLocality({ ...locality, [event.target.name]: event.target.value });
     }
 

@@ -56,7 +56,7 @@ function Providers() {
         setIsOpenDelete(false);
     }
 
-    React.useEffect(() => {
+    const getProviders = () => {
         fetch('http://localhost:4000/providers')
             .then((respuesta) => {
                 return respuesta.json();
@@ -64,7 +64,9 @@ function Providers() {
             .then((respuestaJSON) => {
                 setListProviders(respuestaJSON);
             })
-    }, []);
+    }
+
+    React.useEffect(() => { getProviders() }, []);
 
     const providersRows = listProviders.map((provider) => {
         return (
@@ -114,22 +116,17 @@ function Providers() {
                 <button className="btn-close" onClick={closeModalNew}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <NewProvider />
+                <NewProvider saveAfter={getProviders} close={closeModalNew} />
             </Modal>
 
             <Modal isOpen={isOpenEdit} ariaHideApp={false} onRequestClose={closeModalEdit} style={customStyles}>
                 <button className="btn-close" onClick={closeModalEdit}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <EditProvider id={providerId} />
+                <EditProvider id={providerId} saveAfter={getProviders} close={closeModalEdit} />
             </Modal>
 
-            <Modal isOpen={isOpenDelete} ariaHideApp={false} onRequestClose={closeModalDelete} style={customStyles}>
-                <button className="btn-close" onClick={closeModalDelete}>
-                    <img src={Close} alt="Cerrar" />
-                </button>
-                <DeleteAlert id={providerId} entity="providers" />
-            </Modal>
+            <DeleteAlert id={providerId} entity="providers" open={isOpenDelete} saveAfter={getProviders} close={closeModalDelete} />
         </main>
     );
 }

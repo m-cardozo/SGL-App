@@ -46,23 +46,13 @@ function App() {
               <div className="welcome">Sistema de Gestión Logística</div>
             </main>
           </Route>
-          <Route path="/expenses"></Route>
-          <Route path="/travels"></Route>
-          <Route path="/localities">
-            <Localities />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/customers">
-            <Customers />
-          </Route>
-          <Route path="/providers">
-            <Providers />
-          </Route>
-          <Route path="/vehicles">
-            <Vehicles />
-          </Route>
+          <Route path="/expenses" />
+          <Route path="/travels" />
+          <Route path="/localities" component={Localities} />
+          <Route path="/users" component={Users} />
+          <Route path="/customers" component={Customers} />
+          <Route path="/providers" component={Providers} />
+          <Route path="/vehicles" component={Vehicles} />
           <Route path="/trailers"></Route>
           <Route path="/maintenance"></Route>
         </Switch>

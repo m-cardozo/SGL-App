@@ -14,7 +14,7 @@ function EditProvider(props) {
             })
     }, [props.id]);
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         fetch('http://localhost:4000/providers/' + props.id, {
             headers: {
@@ -22,10 +22,12 @@ function EditProvider(props) {
             },
             method: 'PUT',
             body: JSON.stringify(provider)
-        });
+        })
+            .then(props.saveAfter)
+            .then(props.close)
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setProvider({ ...provider, [event.target.name]: event.target.value });
     }
 

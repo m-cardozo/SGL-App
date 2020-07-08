@@ -74,18 +74,17 @@
 /* ALERT DELETE */
 
 .alert {
-    width: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .alert div {
-    padding: 10px 0 5px;
+    padding: 10px 0;
     text-align: center;
     font-size: 18px;
 }
 
 .alert button {
-    margin: 15px;
+    margin: 10px;
     justify-self: flex-end;
 }

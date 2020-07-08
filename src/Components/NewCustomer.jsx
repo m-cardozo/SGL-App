@@ -1,7 +1,7 @@
 import React from 'react';
 import './components.css';
 
-function NewCustomer() {
+function NewCustomer(props) {
     const [customer, setCustomer] = React.useState({
         name: '',
         buinessName: '',
@@ -10,7 +10,7 @@ function NewCustomer() {
         email: ''
     });
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         fetch('http://localhost:4000/customers', {
             headers: {
@@ -18,10 +18,12 @@ function NewCustomer() {
             },
             method: 'POST',
             body: JSON.stringify(customer)
-        });
+        })
+            .then(props.saveAfter)
+            .then(props.close)
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setCustomer({ ...customer, [event.target.name]: event.target.value });
     }
 

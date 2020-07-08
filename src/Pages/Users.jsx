@@ -33,24 +33,6 @@ function Users() {
         }
     };
 
-    const customStylesAlert = {
-        overlay: {
-            top: 50,
-            left: 200,
-            background: '#90909090'
-        },
-        content: {
-            width: '300px',
-            padding: '5px',
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            borderRadius: '10px',
-            transform: 'translate(-50%, -50%)'
-        }
-    };
-
     const openModalNew = () => {
         setIsOpenNew(true);
     }
@@ -74,7 +56,7 @@ function Users() {
         setIsOpenDelete(false);
     }
 
-    React.useEffect(() => {
+    const getUsers = () => {
         fetch('http://localhost:4000/users')
             .then((respuesta) => {
                 return respuesta.json();
@@ -82,7 +64,9 @@ function Users() {
             .then((respuestaJSON) => {
                 setListUsers(respuestaJSON);
             })
-    }, []);
+    }
+
+    React.useEffect(() => { getUsers() }, []);
 
     const usersRows = listUsers.map((user) => {
         return (
@@ -139,22 +123,17 @@ function Users() {
                 <button className="btn-close" onClick={closeModalNew}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <NewUser />
+                <NewUser saveAfter={getUsers} close={closeModalNew} />
             </Modal>
 
             <Modal isOpen={isOpenEdit} ariaHideApp={false} onRequestClose={closeModalEdit} style={customStyles}>
                 <button className="btn-close" onClick={closeModalEdit}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <EditUser id={userId} />
+                <EditUser id={userId} saveAfter={getUsers} close={closeModalEdit} />
             </Modal>
 
-            <Modal isOpen={isOpenDelete} ariaHideApp={false} onRequestClose={closeModalDelete} style={customStylesAlert}>
-                <button className="btn-close" onClick={closeModalDelete}>
-                    <img src={Close} alt="Cerrar" />
-                </button>
-                <DeleteAlert id={userId} entity="users" />
-            </Modal>
+            <DeleteAlert id={userId} entity="users" open={isOpenDelete} saveAfter={getUsers} close={closeModalDelete} />
         </main>
     );
 }

@@ -14,7 +14,7 @@ function EditCustomer(props) {
             })
     }, [props.id]);
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         fetch('http://localhost:4000/customers/' + props.id, {
             headers: {
@@ -22,10 +22,12 @@ function EditCustomer(props) {
             },
             method: 'PUT',
             body: JSON.stringify(customer)
-        });
+        })
+            .then(props.saveAfter)
+            .then(props.close)
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setCustomer({ ...customer, [event.target.name]: event.target.value });
     }
 

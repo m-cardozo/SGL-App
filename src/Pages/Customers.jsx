@@ -33,18 +33,18 @@ function Customers() {
         }
     };
 
-    function openModalNew() {
+    const openModalNew = () => {
         setIsOpenNew(true);
     }
-    function closeModalNew() {
+    const closeModalNew = () => {
         setIsOpenNew(false);
     }
 
-    function openModalEdit(id) {
+    const openModalEdit = (id) => {
         setIsOpenEdit(true);
         setCustomerId(id);
     }
-    function closeModalEdit() {
+    const closeModalEdit = () => {
         setIsOpenEdit(false);
     }
 
@@ -56,7 +56,7 @@ function Customers() {
         setIsOpenDelete(false);
     }
 
-    React.useEffect(() => {
+    const getCustomers = () => {
         fetch('http://localhost:4000/customers')
             .then((respuesta) => {
                 return respuesta.json();
@@ -64,7 +64,9 @@ function Customers() {
             .then((respuestaJSON) => {
                 setListCustomers(respuestaJSON);
             })
-    }, []);
+    }
+
+    React.useEffect(() => { getCustomers() }, []);
 
     const customersRows = listCustomers.map((customer) => {
         return (
@@ -114,22 +116,17 @@ function Customers() {
                 <button className="btn-close" onClick={closeModalNew}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <NewCustomer />
+                <NewCustomer saveAfter={getCustomers} close={closeModalNew} />
             </Modal>
 
             <Modal isOpen={isOpenEdit} ariaHideApp={false} onRequestClose={closeModalEdit} style={customStyles}>
                 <button className="btn-close" onClick={closeModalEdit}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <EditCustomer id={customerId} />
+                <EditCustomer id={customerId} saveAfter={getCustomers} close={closeModalEdit} />
             </Modal>
 
-            <Modal isOpen={isOpenDelete} ariaHideApp={false} onRequestClose={closeModalDelete} style={customStyles}>
-                <button className="btn-close" onClick={closeModalDelete}>
-                    <img src={Close} alt="Cerrar" />
-                </button>
-                <DeleteAlert id={customerId} entity="customers" />
-            </Modal>
+            <DeleteAlert id={customerId} entity="customers" open={isOpenDelete} saveAfter={getCustomers} close={closeModalDelete} />
         </main>
     );
 }

@@ -56,7 +56,7 @@ function Localities() {
         setIsOpenDelete(false);
     }
 
-    React.useEffect(() => {
+    const getLocalities = () => {
         fetch('http://localhost:4000/localities')
             .then((respuesta) => {
                 return respuesta.json();
@@ -64,7 +64,9 @@ function Localities() {
             .then((respuestaJSON) => {
                 setListLocalities(respuestaJSON);
             })
-    }, []);
+    }
+
+    React.useEffect(() => { getLocalities() }, []);
 
     const localitiesRows = listLocalities.map((locality) => {
         return (
@@ -110,22 +112,17 @@ function Localities() {
                 <button className="btn-close" onClick={closeModalNew}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <NewLocality />
+                <NewLocality saveAfter={getLocalities} close={closeModalNew} />
             </Modal>
 
             <Modal isOpen={isOpenEdit} ariaHideApp={false} onRequestClose={closeModalEdit} style={customStyles}>
                 <button className="btn-close" onClick={closeModalEdit}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <EditLocality id={localityId} />
+                <EditLocality id={localityId} saveAfter={getLocalities} close={closeModalEdit} />
             </Modal>
 
-            <Modal isOpen={isOpenDelete} ariaHideApp={false} onRequestClose={closeModalDelete} style={customStyles}>
-                <button className="btn-close" onClick={closeModalDelete}>
-                    <img src={Close} alt="Cerrar" />
-                </button>
-                <DeleteAlert id={localityId} entity="localities" />
-            </Modal>
+            <DeleteAlert id={localityId} entity="localities" open={isOpenDelete} saveAfter={getLocalities} close={closeModalDelete} />
         </main>
     );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import './components.css';
 
-function NewProvider() {
+function NewProvider(props) {
     const [provider, setProvider] = React.useState({
         name: '',
         businessName: '',
@@ -10,7 +10,7 @@ function NewProvider() {
         email: ''
     });
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         fetch('http://localhost:4000/providers', {
             headers: {
@@ -18,10 +18,12 @@ function NewProvider() {
             },
             method: 'POST',
             body: JSON.stringify(provider)
-        });
+        })
+            .then(props.saveAfter)
+            .then(props.close)
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setProvider({ ...provider, [event.target.name]: event.target.value });
     }
 

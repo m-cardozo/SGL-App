@@ -1,7 +1,7 @@
 import React from 'react';
 import './components.css';
 
-function NewVehicle() {
+function NewVehicle(props) {
     const [vehicle, setVehicle] = React.useState({
         registration: '',
         mark: '',
@@ -10,7 +10,7 @@ function NewVehicle() {
         enabled: ''
     });
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         if (!vehicle.type || !vehicle.enabled) {
             console.error("Debe completar todos los datos");
@@ -21,11 +21,13 @@ function NewVehicle() {
                 },
                 method: 'POST',
                 body: JSON.stringify(vehicle)
-            });
+            })
+                .then(props.saveAfter)
+                .then(props.close)
         }
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setVehicle({ ...vehicle, [event.target.name]: event.target.value });
     }
 

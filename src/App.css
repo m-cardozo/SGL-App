@@ -146,11 +146,12 @@ th {
 }
 
 th:last-child {
-  width: 110px;
+  width: 100px;
 }
 
 td:last-child {
   display: flex;
+  justify-content: space-between;
 }
 
 .buttons {
@@ -176,7 +177,7 @@ button:hover {
 .btn-edit, .btn-delete, .btn-close {
   width: 25px;
   height: 25px;
-  margin: 5px 10px;
+  margin: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,7 +200,7 @@ button>img:hover {
 form .form-block {
   height: 75px;
   margin: 5px;
-  padding: 5px 10px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
 }
@@ -212,7 +213,7 @@ form .form-block input {
 
 form button {
   grid-area: buttons;
-  margin: 5px 15px 15px;
+  margin: 10px;
   align-self: flex-end;
   justify-self: flex-end;
 }

@@ -14,7 +14,7 @@ function EditLocality(props) {
             })
     }, [props.id]);
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         fetch('http://localhost:4000/localities/' + props.id, {
             headers: {
@@ -22,10 +22,12 @@ function EditLocality(props) {
             },
             method: 'PUT',
             body: JSON.stringify(locality)
-        });
+        })
+            .then(props.saveAfter)
+            .then(props.close)
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setLocality({ ...locality, [event.target.name]: event.target.value });
     }
 

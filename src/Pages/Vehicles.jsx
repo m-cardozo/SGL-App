@@ -56,7 +56,7 @@ function Vehicles() {
         setIsOpenDelete(false);
     }
 
-    React.useEffect(() => {
+    const getVehicles = () => {
         fetch('http://localhost:4000/vehicles')
             .then((respuesta) => {
                 return respuesta.json();
@@ -64,7 +64,9 @@ function Vehicles() {
             .then((respuestaJSON) => {
                 setListVehicles(respuestaJSON);
             })
-    }, []);
+    }
+
+    React.useEffect(() => { getVehicles() }, []);
 
     const vehiclesRows = listVehicles.map((vehicle) => {
         return (
@@ -114,22 +116,17 @@ function Vehicles() {
                 <button className="btn-close" onClick={closeModalNew}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <NewVehicle />
+                <NewVehicle saveAfter={getVehicles} close={closeModalNew} />
             </Modal>
 
             <Modal isOpen={isOpenEdit} ariaHideApp={false} onRequestClose={closeModalEdit} style={customStyles}>
                 <button className="btn-close" onClick={closeModalEdit}>
                     <img src={Close} alt="Cerrar" />
                 </button>
-                <EditVehicle id={vehicleId} />
+                <EditVehicle id={vehicleId} saveAfter={getVehicles} close={closeModalEdit} />
             </Modal>
 
-            <Modal isOpen={isOpenDelete} ariaHideApp={false} onRequestClose={closeModalDelete} style={customStyles}>
-                <button className="btn-close" onClick={closeModalDelete}>
-                    <img src={Close} alt="Cerrar" />
-                </button>
-                <DeleteAlert id={vehicleId} entity="vehicles" />
-            </Modal>
+            <DeleteAlert id={vehicleId} entity="vehicles" open={isOpenDelete} saveAfter={getVehicles} close={closeModalDelete} />
         </main>
     );
 }

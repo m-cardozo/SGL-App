@@ -1,7 +1,7 @@
 import React from 'react';
 import './components.css';
 
-function NewUser() {
+function NewUser(props) {
     const [user, setUser] = React.useState({
         name: '',
         lastName: '',
@@ -13,7 +13,7 @@ function NewUser() {
         egressDate: ''
     });
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         if (!user.position || !user.paymentPeriod) {
             console.error("Debe completar todos los datos");
@@ -24,11 +24,13 @@ function NewUser() {
                 },
                 method: 'POST',
                 body: JSON.stringify(user)
-            });
+            })
+                .then(props.saveAfter)
+                .then(props.close)
         }
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setUser({ ...user, [event.target.name]: event.target.value });
     }
 

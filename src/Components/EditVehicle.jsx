@@ -14,7 +14,7 @@ function EditVehicle(props) {
             })
     }, [props.id]);
 
-    const sendForm = function (event) {
+    const sendForm = (event) => {
         event.preventDefault();
         fetch('http://localhost:4000/vehicles/' + props.id, {
             headers: {
@@ -22,10 +22,12 @@ function EditVehicle(props) {
             },
             method: 'PUT',
             body: JSON.stringify(vehicle)
-        });
+        })
+            .then(props.saveAfter)
+            .then(props.close)
     };
 
-    const handleChange = function (event) {
+    const handleChange = (event) => {
         setVehicle({ ...vehicle, [event.target.name]: event.target.value });
     }
 
